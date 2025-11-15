@@ -4,9 +4,7 @@
     <div class="main-menu-content">
       <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
         <li class=" nav-item"><a href="{{route('dashboard')}}">
-          <li class="active">
-            <a href="{{ route('dashboard') }}"><i class="menu-icon fa fa-laptop"></i>Anasayfa </a>
-        </li>
+           
                
           <i class="icon-home3"></i><span data-i18n="nav.dash.main"  class="menu-title">AnaSayfa </span><span class="tag hidden tag tag-danger tag-pill float-xs-right mr-2">5</span></a>
           <ul class="menu-content">
