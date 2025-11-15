@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ContentController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
@@ -62,6 +62,15 @@ Route::group(['prefix'=>'admin-panel' ],function (){
                 Route::resource('types', AdminTypeController::class)->except(['show']);
         });
 
-
+        Route:: group([
+            'middleware' => ['checkSudo'],
+             'prefix' => 'admins',
+             'as' => 'sudo.'
+         ],function (){
+            Route::get('/list',[AdminController::class, 'adminList'])->name('admin-list');
+            Route::get('/admin-create',[AdminController::class, 'adminCreate'])->name('admin-create');
+            Route::post('/admin-post',[AdminController::class, 'adminPost'])->name('admin-post');
+         });
+ 
     });
 });

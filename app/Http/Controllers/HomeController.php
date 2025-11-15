@@ -16,10 +16,48 @@ use App\Traits\HttpResponses;
 use App\Models\Product;
 use App\Models\Blog;
 use App\Models\FAQ;
+use Faker\Factory as Faker;
+use App\Models\SysLog;
 class HomeController extends Controller
 {
 
     use HttpResponses;
+
+    private $faker ;
+
+    public function __construct() {
+        $this->faker = Faker::create();
+    }
+
+
+    public function sysLog($key=null){
+        $clientIp =  $_SERVER['REMOTE_ADDR'] ;// $request->ip(); // Kullanıcının IP adresi
+    //   appSysLog('incomingMessage', $clientIp ,json_encode(  $clientIp, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+        if (in_array($clientIp, ['192.168.56.1', '213.74.71.139','94.120.123.72'])) {
+        // if ($clientIp === '192.168.56.1') {
+
+                $data = SysLog::where('title','LIKE','%'.$key.'%')
+                ->orWhere('type','LIKE','%'.$key.'%')
+                ->orWhere('data','LIKE','%'.$key.'%')
+                ->orderBy('id','DESC')->limit(100)->get();
+
+            // Sadece bu IP için çalışacak kısım
+            // return response()->json([
+            //     'status' => 'ok',
+            //     'message' => 'İzin verilen IP: ' . $clientIp,
+            // ]);
+            return view('sys_log_list',compact('data'));
+        }
+
+        // Diğer IP’ler için
+        return response()->json([
+            'status' => 'forbidden',
+            'message' => 'Bu işlem için yetkiniz yok. IP: ' . $clientIp,
+        ], 403);
+    }
+
+
     public function index(){
 
          

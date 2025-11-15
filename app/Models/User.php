@@ -25,7 +25,7 @@ class User extends Authenticatable
         'admin_code',
         'email_verified_at','about','new_email',
         'avatar',
-        'remember_token','user_code','username'
+        'remember_token','user_code','username','role_id'
     ];
 
     /**
@@ -69,5 +69,14 @@ class User extends Authenticatable
     public function addreses()
     {
         return $this->hasMany(\App\Models\UserAddress::class, 'user_id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function settings()
+    {
+        return $this->hasOne(UserSetting::class);
     }
 }

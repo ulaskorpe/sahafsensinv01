@@ -24,12 +24,7 @@
                     <div class="col-md-5" >
                     </div>
                     <div class="col-2 col-md-2">
-                        <select name="lang" id="lang" class="form-control" onchange="window.open('/admin-panel/content/list/{{$type->slug}}/'+this.value+'/{{$parent_id}}','_self')">
-                            @foreach($langs as $lg)
-                            <option value="{{$lg}}" @if($lg==$lang) selected @endif>{{$lg}}</option>
-                            @endforeach
-
-                        </select>
+                     
 
                     </div>
 
@@ -53,7 +48,7 @@
 
 
                         @else
-                        <button class="btn btn-primary  " id="submit_button"  onclick="copyOthers()">Diğer Dillere Kopyala</button>
+                       
                         <form id="copy-form" name="copy-form" onsubmit="return false"
                         action="#" method="post" enctype="multipart/form-data">
 

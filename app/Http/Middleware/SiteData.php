@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Services\FrontService;
+use App\Http\Services\FrontEndServices;
 use App\Models\Counter;
 use Inertia\Inertia;
 use App\Models\Post;
@@ -35,7 +35,7 @@ class SiteData
 
         }
 
-        $ip ='94.120.125.21';//request()->ip();
+        $ip = request()->ip();
         $response = file_get_contents("http://ip-api.com/json/{$ip}?fields=status,message,country,regionName,city,lat,lon,query");
         $data = json_decode($response, true);
 

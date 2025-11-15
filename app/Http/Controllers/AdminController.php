@@ -119,5 +119,7 @@ class AdminController extends Controller
     public function admin_settings(){
         
     }
+
+    //TODO :: make admin crud
 }
 
