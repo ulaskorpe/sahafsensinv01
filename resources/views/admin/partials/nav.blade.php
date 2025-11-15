@@ -8,7 +8,7 @@
           <li class="nav-item"><a href="{{route('dashboard')}}" class="navbar-brand nav-link">
             
             <img alt="branding logo" src="{{url('/images/sahaf_logo/logo.jpeg')}}"
-             data-expand="{{url('/images/sahaf_logo/logo.jpeg')}}" style="max-width: 300px"   
+             data-expand="{{url('/images/sahaf_logo/logo.jpeg')}}" style="max-width: 200px"   
              data-collapse="{{url('/images/sahaf_logo/logo.jpeg')}}"  class="brand-logo"> 
              
             </li>

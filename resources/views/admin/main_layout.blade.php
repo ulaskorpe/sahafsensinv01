@@ -18,7 +18,7 @@
 
 
     <!-- main menu-->
-    
+    @include("admin.partials.menu")
     <!-- / main menu-->
 
     <div class="robust-content content container-fluid">

@@ -45,8 +45,12 @@
             else{
               position = $(".main-menu-content").find('li.active').position();
             }
-            $.robust.menu.container.scrollTop(position.top);
-            this.update();
+            // $.robust.menu.container.scrollTop(position.top);
+            // this.update();
+            if(position && typeof position.top !== 'undefined'){
+              $.robust.menu.container.scrollTop(position.top);
+              this.update();
+            }
         }
       },
 

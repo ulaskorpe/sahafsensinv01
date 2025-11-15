@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cookie;
 //use App\Models\User;
+use App\Models\Role;
 class checkAdmin
 {
     /**
@@ -20,11 +21,28 @@ class checkAdmin
     public function handle(Request $request, Closure $next): Response
     {
         
+        if(empty(Session::get('admin_code')) || empty(Auth::id())){
+            Session::forget('admin_code');
+            Auth::logout();
+            Cookie::queue('remember_me', '',0);
+            return redirect()->route('admin-login');
 
+        }else{
+            // echo Auth::id();
+            // echo Session::get('admin_code');
+            $data = [
+                'role'=> Role::find(auth()->user()->role_id)
+            ];
+
+             view()->share(['data'=>$data]);
+        }
+
+
+        return $next($request);
         
         if(Auth::user() == null || Session::get('admin_code') == null){
             Auth::logout();
-            Cookie::queue('remember_me', '',0);
+           
              return redirect(route('admin-login'));
          
         }

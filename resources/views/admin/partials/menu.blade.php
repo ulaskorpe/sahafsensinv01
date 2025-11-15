@@ -3,6 +3,19 @@
     <!-- main menu content-->
     <div class="main-menu-content">
       <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
+        @if( $data['role']['name']  == 'sudo')
+        <li class=" nav-item"><a href="{{route('dashboard')}}">
+
+            <i class="icon-key22"></i><span data-i18n="nav.dash.main"  class="menu-title">SUDO Panel </span><span class="tag hidden tag tag-danger tag-pill float-xs-right mr-2">5</span></a>
+            <ul class="menu-content">
+              <li @if($type->active =='sudo') class="active" @endif><a href="{{route('sudo.types.index')}}" class="menu-item">Content Types </a></li>
+              <li><a href="#" class="menu-item">Admins </a></li>
+              <li><a href="#" class="menu-item">Roles </a></li>
+
+            </ul>
+          </li>
+        @endif
         <li class=" nav-item"><a href="{{route('dashboard')}}">
            
                
@@ -34,7 +47,7 @@
             <progress value="70" max="100" class="progress progress-xs progress-info">70%</progress>
           </div>
         </div>
-        <div class="actions"><a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Settings"><span aria-hidden="true" class="icon-cog3"></span></a><a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock"><span aria-hidden="true" class="icon-lock4"></span></a><a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout"><span aria-hidden="true" class="icon-power3"></span></a></div>
+        <div class="actions"><a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Settings"><span aria-hidden="true" class="icon-cog3"></span></a><a href="javascript: void(0);"   data-toggle="tooltip" data-original-title="Lock"><span aria-hidden="true" class="icon-lock4"></span></a><a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout"><span aria-hidden="true" class="icon-power3"></span></a></div>
       </div>
     </div>
     <!-- main menu footer-->

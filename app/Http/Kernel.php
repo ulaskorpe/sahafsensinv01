@@ -82,6 +82,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
        'checkAdmin'=>\App\Http\Middleware\checkAdmin::class,
+       'checkSudo' => \App\Http\Middleware\checkSudo::class,
+       'site_data' => \App\Http\Middleware\SiteData::class,
     ];
 
     protected $routeMiddleware= [

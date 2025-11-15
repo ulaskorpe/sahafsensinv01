@@ -5,7 +5,7 @@
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Project Dashboard - Robust Admin Template</title>
+    <title>SAHAFSENSIN ADMIN PANEL</title>
 
 
     <link rel="stylesheet" type="text/css" href="{{url('/robust-assets/ico/apple-icon-60.png')}}">
