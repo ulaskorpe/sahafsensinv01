@@ -42,7 +42,7 @@ class DashboardController extends Controller
           $type = Type::where('slug','=','top_banner')->first();
       }
 
-      return view('admin.index',['type'=>$type, 'dailyData' => $dailyData,
+      return view('admin_panel.index',['type'=>$type, 'dailyData' => $dailyData,
       'countryData' => $countryData,]);
      }
 }

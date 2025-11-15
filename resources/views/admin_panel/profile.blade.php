@@ -7,8 +7,8 @@
             
             <div class="card-body collapse in">
                 <div class="card-block">
-                    <form class="form" id="user-form" name="user-form" action="{{ route('profile-post') }}"
-                    method="post" enctype="multipart/form-data" onsubmit="return false">
+                    <form class="form" id="user-forddm" name="user-fddorm" action="{{ route('profile-post') }}"
+                    method="post" enctype="multipart/form-data"  >
                     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
 
                  
@@ -45,7 +45,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="projectinput4">Telefon Numarası</label>
-                                        <input type="text" id="phone" class="form-control" placeholder="Phone" value="{{$user['phone']}}" name="phone">
+                                        <input type="text" id="phone" class="form-control" placeholder="Phone" value="{{$user['phone_number']}}" name="phone">
                                     </div>
                                 </div>
                             </div>
@@ -63,10 +63,10 @@
                                    
                                 </label>
                             </div>
-                            @if(!empty($user['image']))
+                            @if(!empty($user['avatar']))
                             <div class="form-group" id="avatar_pic">
-                                <div class="input-group">
-                                   <img src="{{url("files/users/200".$user['image'])}}" >
+                                <div class="input-group"> 
+                                   <img src="{{url("files/users/".$user['id']."/200".$user['avatar'])}}" >
                                 </div>
                             </div>
                             @endif
@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-actions right">
                         
-                            <button type="submit" class="btn btn-primary" onclick="userFormSubmit()">
+                            <button type="submit" class="btn btn-primary"  >
                                 <i class="icon-check2"></i> Kaydet
                             </button>
                         </div>

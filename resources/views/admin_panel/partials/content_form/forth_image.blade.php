@@ -11,11 +11,11 @@ class="form-control-file">
            style="max-width: 200px">
    </div>
 </div>
-@if(!empty($post))
+@if(!empty($post[$field]))
 <div class="row" id="preview_forth_image" >
     <div class="col col-md-3"></div>
     <div class="col-12 col-md-9">
-        <img id="" src="{{url('post_images/'.$post->forth_image)}}" alt=" "
+        <img id="" src="{{url('post_images/'.$post->forth_image)}}" alt=""
             style="max-width: 200px">
             <br>
             <a href="#" onclick="emptyField('{{$post->id}}','{{$field}}')"

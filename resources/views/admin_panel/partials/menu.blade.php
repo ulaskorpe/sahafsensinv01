@@ -21,9 +21,16 @@
                
           <i class="icon-home3"></i><span data-i18n="nav.dash.main"  class="menu-title">AnaSayfa </span><span class="tag hidden tag tag-danger tag-pill float-xs-right mr-2">5</span></a>
           <ul class="menu-content">
-          
-         
 
+            <li @if($type->active =='dashboard') class="active" @endif><a href="{{route('content-list','top_banner')}}" class="menu-item">Künye {{ $type->active }}</a></li>
+
+            <li><a href="{{route('content-list','slider')}}" class="menu-item">Slider  </a></li>
+            <li><a href="{{route('content-list','slider_second')}}" class="menu-item">Slider#2</a></li>
+            <li><a href="{{route('content-list','quotes')}}" class="menu-item">Alıntılar</a></li>
+
+       <!-- #endregion -->
+
+  <li><a href="{{route('content-list','contact_spot')}}" class="menu-item">İletişim Yazı</a></li>
           </ul>
         </li>
     

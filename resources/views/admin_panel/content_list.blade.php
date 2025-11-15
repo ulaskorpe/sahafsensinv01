@@ -32,7 +32,7 @@
                         </select>
 
                     </div>
-                  
+
                     @if(in_array('parent_id',$fields) )
                     <div class="col-2 col-md-2">
                     <select name="parent_id" id="parent_id" class="form-control" onchange="select_cat()">
@@ -50,7 +50,7 @@
                         @if($type->single == 0)
                         <button class="btn btn-primary  "  onclick="createItem()">Yeni  {{ $type->name }}</button>
 
-                  
+
 
                         @else
                         <button class="btn btn-primary  " id="submit_button"  onclick="copyOthers()">Diğer Dillere Kopyala</button>
@@ -64,7 +64,7 @@
 
 
                         </form>
-                    
+
 
                         @endif
 
@@ -84,11 +84,18 @@
                                 <th>Sıra</th>
                                 <th>Göster</th>
                                 @endif
-                                @if(in_array('image',$fields) || in_array('second_image',$fields)|| in_array('third_image',$fields))
+                                @if(in_array('image',$fields) || in_array('second_image',$fields))
+
                                 <th>Icon</th>
                                 @endif
+
+                                @if(in_array('youtube_video',$fields) )
+
+                                <th>youtube</th>
+                                @endif
+
                                 <th>Başlık</th>
-                               
+
                                 @if(in_array('parent_id',$fields) )
                                 <th>Kategori</th>
                                 @endif
@@ -100,9 +107,9 @@
                             @foreach ($posts as $post)
                                 <tr>
                                     @if($type->single == 0)
-                                    <td>{{$post->count}}</td>
+                                    <td>{{$post->count}}  </td>
                                     <td>
- 
+
                                         @if($post->show_post)
 
                                         <i class="icon-check"></i>
@@ -118,14 +125,24 @@
 
 
                                     @if(in_array('image',$fields) || in_array('second_image',$fields))
+
                                     <td  >
- 
-                                            @if(empty($post['image']))
-                                            <img src="{{url('post_images/icon_'.$post->second_image)}}" alt="" >
+
+                                            @if(!empty($post['image']))
+                                            <img src="{{url('post_images/icon_'.$post->image)}}" alt="" >
+
                                             @else
-                                        <img src="{{url('post_images/icon_'.$post->image)}}" alt="" >
-                                        
+                                        <img src="{{url('post_images/icon_'.$post->second_image)}}" alt="" >
+
                                             @endif
+                                    </td>
+                                    @endif
+
+                                    @if(in_array('youtube_video',$fields) )
+
+                                    <td>
+
+                                        <img src="https://img.youtube.com/vi/{{$post['youtube_video']}}/hqdefault.jpg " alt="" style="width:200px">
                                     </td>
                                     @endif
 

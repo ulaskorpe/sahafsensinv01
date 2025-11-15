@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use App\Models\Type as Type;
 use Exception;
 use App\Http\Controllers\Helpers\GeneralHelper;
 use Intervention\Image\Facades\Image;
@@ -48,8 +49,9 @@ class AdminController extends Controller
     }
 
     public function profile(){
-        
-            return view('admin.panel.profile',['user'=> User::where('admin_code','=',Session::get('admin_code'))->first()]);
+        $type = Type::where('slug','=','top_banner')->first();
+        //dd(User::where('admin_code','=',Session::get('admin_code'))->first());
+            return view('admin_panel.profile',['type'=>$type,'user'=> User::where('admin_code','=',Session::get('admin_code'))->first()]);
     }
 
     public function profile_post(Request $request){
@@ -59,7 +61,7 @@ class AdminController extends Controller
             $user = User::where('admin_code','=',Session::get('admin_code'))->first();
             $user->email= $request['email'];
             $user->name= $request['name'];
-            $user->phone_number= $request['phone_number'];
+            $user->phone_number= $request['phone'];
    
          if(!empty($request->hasFile('avatar'))){
             $file = $request->file('avatar');
@@ -67,12 +69,12 @@ class AdminController extends Controller
             if (in_array($ext, $this->allowed_array)) {
          
                 if (!empty($file)) {
+                   
                     $path = public_path("files/users/" . $user['id']);
                     $filename = GeneralHelper::fixName($request['name']) . "_" . date('YmdHis') . "." . GeneralHelper::findExtension($file->getClientOriginalName());
                     $file->move($path, $filename);
                     $user->avatar = $filename;
-   
-               
+    
    
                 $path = public_path("files/users/" . $user['id'] . "/" . $filename);
    
@@ -87,9 +89,9 @@ class AdminController extends Controller
    
             }
         }
-   
+    
             $user->save();
-
+         
             return  $this->success([''],"Bilgileriniz güncellendi" ,200);
          }catch (Exception $e){
             // return response()->json(['error' => $e->getMessage()], 500);

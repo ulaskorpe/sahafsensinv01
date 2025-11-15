@@ -11,7 +11,7 @@ class="form-control-file">
            style="max-width: 200px">
    </div>
 </div>
-@if(!empty($post))
+@if(!empty($post[$field]))
 <div class="row" id="preview_fifth_image" >
     <div class="col col-md-3"></div>
     <div class="col-12 col-md-9">

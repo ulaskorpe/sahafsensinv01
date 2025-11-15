@@ -4,11 +4,11 @@
 
 
 
-  @include("admin.partials.head")
+  @include("admin_panel.partials.head")
   <body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns  fixed-navbar">
     <!-- START PRELOADER-->
-  @include("admin.partials.loader")
-  @include("admin.partials.nav")
+  @include("admin_panel.partials.loader")
+  @include("admin_panel.partials.nav")
 
     @yield("css")
     <!-- END PRELOADER-->
@@ -18,7 +18,7 @@
 
 
     <!-- main menu-->
-    @include("admin.partials.menu")
+    @include("admin_panel.partials.menu")
     <!-- / main menu-->
 
     <div class="robust-content content container-fluid">
@@ -39,7 +39,7 @@
       <p class="clearfix text-muted text-sm-center mb-0 px-2"><span class="float-md-left d-xs-block d-md-inline-block">Copyright  &copy; 2025 </p>
     </footer>
 
-    @include("admin.partials.scripts")
+    @include("admin_panel.partials.scripts")
     @yield("scripts")
     <!-- END PAGE LEVEL JS-->
 

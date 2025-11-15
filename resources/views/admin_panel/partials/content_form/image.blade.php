@@ -16,7 +16,7 @@
             <div class="row" id="preview_image" >
                 <div class="col col-md-3"></div>
                 <div class="col-12 col-md-9">
-
+                       
                     <img id="" src="{{url('post_images/'.$post->image)}}" alt=" "
                         style="max-width: 200px">
 

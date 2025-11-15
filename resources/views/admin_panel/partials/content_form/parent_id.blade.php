@@ -13,7 +13,7 @@
 </select>
 @else
 
-<select name="parent_id" id="parent_id" class="form-control"  onchange="count_select(this.value,0)">
+<select name="parent_id" id="parent_id" class="form-control"  onchange="count_select(this.value,0,{{$type['id']}})">
 
     <option value="NoCat">Seçiniz</option>
     @foreach($product_cats as $cat)

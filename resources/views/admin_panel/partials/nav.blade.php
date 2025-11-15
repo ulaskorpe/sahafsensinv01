@@ -26,10 +26,11 @@
         
             <li class="dropdown dropdown-user nav-item"><a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link"><span class="avatar avatar-online">
 
-              @if(!empty(Auth::user()->image))
-              <img src="{{url('files/users/200'.Auth::user()->image)}}" alt="avatar">
+              @if(!empty(Auth::user()->avatar))
+            
+              <img src="{{url('files/users/'.Auth::user()->id.'/200'.Auth::user()->avatar)}}" alt="avatar">
               @else
-              <img src="../../../robust-assets/images/portrait/small/avatar-s-1.png" alt="avatar">
+              <img src="{{url('images/user-thumbnail.png')}}" alt="avatar">
               @endif
 
               <i></i></span><span class="user-name">
