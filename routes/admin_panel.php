@@ -69,7 +69,9 @@ Route::group(['prefix'=>'admin-panel' ],function (){
          ],function (){
             Route::get('/list',[AdminController::class, 'adminList'])->name('admin-list');
             Route::get('/admin-create',[AdminController::class, 'adminCreate'])->name('admin-create');
+            Route::get('/admin-edit/{admin}',[AdminController::class, 'adminEdit'])->name('admin-edit');
             Route::post('/admin-post',[AdminController::class, 'adminPost'])->name('admin-post');
+            Route::delete('/admin-delete/{admin}',[AdminController::class, 'adminDelete'])->name('admin-delete');
          });
  
     });

@@ -10,7 +10,7 @@
             <i class="icon-key22"></i><span data-i18n="nav.dash.main"  class="menu-title">SUDO Panel </span><span class="tag hidden tag tag-danger tag-pill float-xs-right mr-2">5</span></a>
             <ul class="menu-content">
               <li @if($type->active =='sudo') class="active" @endif><a href="{{route('sudo.types.index')}}" class="menu-item">Content Types </a></li>
-              <li><a href="{{ route('admins') }}" class="menu-item">Admins </a></li>
+              <li><a href="{{ route('sudo.admin-list') }}" class="menu-item">Admins </a></li>
               <li><a href="#" class="menu-item">Roles </a></li>
 
             </ul>

@@ -23,7 +23,7 @@ class TypeController extends Controller
 
         return view('admin_panel.types.type_list', [
             'types' => $types,
-            'type'=>['active'=>'sudo'],
+            'type'=>Type::find(58),
         ]);
     }
 
@@ -33,7 +33,7 @@ class TypeController extends Controller
     public function create(): View
     {
         return view('admin_panel.types.type_form', [
-            'type' => new Type(['single' => false]),
+            'type'=>Type::find(58),
             'formAction' => route('sudo.types.store'),
             'isEdit' => false,
             'sudo'=>13,
@@ -63,10 +63,10 @@ class TypeController extends Controller
      */
     public function edit(Type $type): View
     {
-        $type->loadMissing('resizeFields');
+       // $type->loadMissing('resizeFields');
 
         return view('admin_panel.types.type_form', [
-            'type' => $type,
+            'type'=>Type::find(58),
             'sudo'=>13,
             'formAction' => route('sudo.types.update', $type),
             'isEdit' => true,

@@ -9,11 +9,15 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use Illuminate\Http\RedirectResponse;
 use App\Models\Type as Type;
+use Illuminate\Support\Facades\Mail;
 use Exception;
 use App\Http\Controllers\Helpers\GeneralHelper;
 use Intervention\Image\Facades\Image;
+use Illuminate\Validation\Rule;
+use Illuminate\View\View;
+use App\Mail\AdminCreatedMail;
 class AdminController extends Controller
 {
     use HttpResponses;
@@ -120,6 +124,132 @@ class AdminController extends Controller
         
     }
 
+    public function adminList(): View
+    {
+        $admins = User::where('role_id', 2)
+            ->orderByDesc('id')
+            ->get();
+
+        return view('admin_panel.admins.admin_list', [
+            'admins' => $admins,'type'=>Type::find(58)
+        ]);
+    }
+
+    public function adminCreate(): View
+    {
+        return view('admin_panel.admins.admin_form', [
+            'admin' => new User(),
+            'type'=>Type::find(58),
+            'formAction' => route('sudo.admin-post'),
+            'isEdit' => false,
+        ]);
+    }
+
+    public function adminEdit(User $admin): View
+    {
+        if ((int) $admin->role_id !== 2) {
+            abort(404);
+        }
+
+        return view('admin_panel.admins.admin_form', [
+            'admin' => $admin,
+            'formAction' => route('sudo.admin-post'),
+            'isEdit' => true,
+        ]);
+    }
+
+    public function adminPost(Request $request): RedirectResponse
+    {
+        $adminId = (int) $request->input('id');
+        $admin = null;
+
+        if ($adminId > 0) {
+            $admin = User::findOrFail($adminId);
+
+            if ((int) $admin->role_id !== 2) {
+                abort(404);
+            }
+        }
+
+        $validated = $request->validate([
+            'id' => ['nullable', 'integer'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($admin?->id),
+            ],
+            'phone_number' => ['nullable', 'string', 'max:255'],
+            'password' => [$admin ? 'nullable' : 'required', 'string', 'min:6'],
+        ]);
+
+        $admin ??= new User();
+
+        $admin->name = trim($validated['name']);
+        $admin->email = strtolower(trim($validated['email']));
+        $admin->phone_number = isset($validated['phone_number']) ? trim((string) $validated['phone_number']) : null;
+        $admin->role_id = 2;
+
+        $plainPassword = $validated['password'] ?? null;
+
+        if (!$admin->exists) {
+            $admin->admin_code = $this->generateAdminCode();
+        }
+
+        if (!empty($plainPassword)) {
+            $admin->password = Hash::make($plainPassword);
+        }
+
+        if (!$admin->exists) {
+            $admin->email_verified_at = now();
+        }
+
+        $admin->save();
+
+        if (!$adminId && $plainPassword) {
+            try {
+                Mail::to($admin->email)->send(new AdminCreatedMail($admin->name, $admin->admin_code, $plainPassword));
+            } catch (Exception $exception) {
+                report($exception);
+            }
+        }
+
+        $message = $adminId ? __('Yönetici başarıyla güncellendi.') : __('Yönetici başarıyla oluşturuldu.');
+
+        return redirect()
+            ->route('sudo.admin-list')
+            ->with('success', $message);
+    }
+
+    public function adminDelete(User $admin): RedirectResponse
+    {
+        if ((int) $admin->role_id !== 2) {
+            abort(404);
+        }
+
+        if ($admin->id === Auth::id()) {
+            return redirect()
+                ->route('sudo.admin-list')
+                ->with('error', __('Kendi hesabınızı silemezsiniz.'));
+        }
+
+        $admin->delete();
+
+        return redirect()
+            ->route('sudo.admin-list')
+            ->with('success', __('Yönetici başarıyla silindi.'));
+    }
+
     //TODO :: make admin crud
+    private function generateAdminCode(): int
+    {
+        do {
+            $token = random_int(100000, 999999);
+            $exists = User::where('admin_code', $token)->exists();
+        } while ($exists);
+
+        return $token;
+    }
 }
 
