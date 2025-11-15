@@ -1,0 +1,95 @@
+ET|HEAD   / ..................................................................................................... index › HomeController@index
+  GET|HEAD   _debugbar/assets/javascript ............................................ debugbar.assets.js › Barryvdh\Debugbar › AssetController@js
+  GET|HEAD   _debugbar/assets/stylesheets ......................................... debugbar.assets.css › Barryvdh\Debugbar › AssetController@css
+  DELETE     _debugbar/cache/{key}/{tags?} ................................... debugbar.cache.delete › Barryvdh\Debugbar › CacheController@delete
+  GET|HEAD   _debugbar/clockwork/{id} .................................. debugbar.clockwork › Barryvdh\Debugbar › OpenHandlerController@clockwork
+  GET|HEAD   _debugbar/open ............................................. debugbar.openhandler › Barryvdh\Debugbar › OpenHandlerController@handle
+  POST       _ignition/execute-solution ........................... ignition.executeSolution › Spatie\LaravelIgnition › ExecuteSolutionController
+  GET|HEAD   _ignition/health-check ....................................... ignition.healthCheck › Spatie\LaravelIgnition › HealthCheckController
+  POST       _ignition/update-config .................................... ignition.updateConfig › Spatie\LaravelIgnition › UpdateConfigController
+  GET|HEAD   admin-login ..................................................................................... admin-login › AuthController@login
+  GET|HEAD   admin-panel .................................................................................. dashboard › DashboardController@index
+  GET|HEAD   admin-panel/admin-settings ......................................................... admin-settings › AdminController@admin_settings
+  GET|HEAD   admin-panel/blogs ............................................................................... blogs.index › BlogController@index
+  GET|HEAD   admin-panel/blogs/check-slug/{slug}/{type?}/{id?} ........................................... check-slug › BlogController@check_slug
+  GET|HEAD   admin-panel/blogs/create/{type?} .............................................................. blogs.create › BlogController@create
+  POST       admin-panel/blogs/delete ..................................................................... blogs-delete › BlogController@destroy
+  GET|HEAD   admin-panel/blogs/delete-blog-image/{image_id} ............................... delete-blog-images › BlogController@delete_blog_image
+  GET|HEAD   admin-panel/blogs/edit/{slug} ..................................................................... blogs.edit › BlogController@edit
+  GET|HEAD   admin-panel/blogs/show-blog-images/{blog_id}/{image_id?}/{rank?} ................ show-blog-images › BlogController@show_blog_images
+  GET|HEAD   admin-panel/blogs/show-image/{type}/{id} .................................................... show-image › BlogController@show_image
+  POST       admin-panel/blogs/store ......................................................................... blogs.store › BlogController@store
+  POST       admin-panel/blogs/update ...................................................................... blogs-update › BlogController@update
+  GET|HEAD   admin-panel/categories/check-slug/{slug}/{type?}/{id?} .................................. check-slug › CategoryController@check_slug
+  GET|HEAD   admin-panel/categories/create/{type?} ................................................ categories.create › CategoryController@create
+  POST       admin-panel/categories/delete ......................................................... category-delete › CategoryController@destroy
+  GET|HEAD   admin-panel/categories/delete-category-image/{image_id} .......... delete-category-images › CategoryController@delete_category_image
+  GET|HEAD   admin-panel/categories/edit/{slug} ....................................................... categories.edit › CategoryController@edit
+  GET|HEAD   admin-panel/categories/select-categories/{cat_id}/{type?}/{show?} ......... select-categories › CategoryController@select_categories
+  GET|HEAD   admin-panel/categories/show-category-images/{cat_id}/{image_id?}/{rank?} show-category-images › CategoryController@show_category_im…
+  GET|HEAD   admin-panel/categories/show-image/{type}/{id} ........................................... show-image › CategoryController@show_image
+  GET|HEAD   admin-panel/categories/show-sub-categories/{cat_id}/{type?} ........... show-sub-categories › CategoryController@show_sub_categories
+  GET|HEAD   admin-panel/categories/show-up-categories/{cat_id} ...................... show-up-categories › CategoryController@show_up_categories
+  POST       admin-panel/categories/store ........................................................... categories.store › CategoryController@store
+  POST       admin-panel/categories/update .......................................................... category-update › CategoryController@update
+  GET|HEAD   admin-panel/categories/{type?} ......................................................... categories.index › CategoryController@index
+  GET|HEAD   admin-panel/check-email/{email} .......................................................... check-email › AdminController@check_email
+  GET|HEAD   admin-panel/check-old-pw/{pw} .......................................................... check-old-pw › AdminController@check_old_pw
+  POST       admin-panel/logout .................................................................................. logout › AuthController@logout
+  GET|HEAD   admin-panel/notifications ............................................................ notifications › AdminController@notifications
+  GET|HEAD   admin-panel/pages ............................................................................... pages.index › PageController@index
+  GET|HEAD   admin-panel/pages/check-slug/{slug}/{type?}/{id?} ..................................... pages-check-slug › PageController@check_slug
+  GET|HEAD   admin-panel/pages/create ...................................................................... pages.create › PageController@create
+  POST       admin-panel/pages/delete ..................................................................... pages-delete › PageController@destroy
+  GET|HEAD   admin-panel/pages/delete-page-image/{image_id} ............................... delete-page-images › PageController@delete_page_image
+  GET|HEAD   admin-panel/pages/edit/{slug} ..................................................................... pages.edit › PageController@edit
+  GET|HEAD   admin-panel/pages/show-page-images/{page_id}/{image_id?}/{rank?} ................ show-page-images › PageController@show_page_images
+  POST       admin-panel/pages/store ......................................................................... pages.store › PageController@store
+  POST       admin-panel/pages/update ...................................................................... pages-update › PageController@update
+  POST       admin-panel/password-post ............................................................ password-post › AdminController@password_post
+  GET|HEAD   admin-panel/products/check-slug/{slug}/{type?}/{id?} ..................................... check-slug › ProductController@check_slug
+  GET|HEAD   admin-panel/products/create ............................................................. products.create › ProductController@create
+  POST       admin-panel/products/delete ............................................................ products-delete › ProductController@destroy
+  GET|HEAD   admin-panel/products/delete-product-image/{image_id} ................ delete-product-images › ProductController@delete_product_image
+  GET|HEAD   admin-panel/products/edit/{slug} ............................................................ products.edit › ProductController@edit
+  GET|HEAD   admin-panel/products/show-image/{type}/{id} .............................................. show-image › ProductController@show_image
+  GET|HEAD   admin-panel/products/show-product-images/{product_id}/{image_id?}/{rank?} . show-page-images › ProductController@show_product_images
+  POST       admin-panel/products/store ................................................................ products.store › ProductController@store
+  POST       admin-panel/products/update ............................................................. products-update › ProductController@update
+  GET|HEAD   admin-panel/products/{verified?} .......................................................... products.index › ProductController@index
+  GET|HEAD   admin-panel/profile .............................................................................. profile › AdminController@profile
+  POST       admin-panel/profile-post ............................................................... profile-post › AdminController@profile_post
+  GET|HEAD   admin-panel/site-data ................................................................... site-data.index › SiteDataController@index
+  GET|HEAD   admin-panel/site-data/check-slug/{slug}/{type?}/{id?} ......................... site-data-check-slug › SiteDataController@check_slug
+  GET|HEAD   admin-panel/site-data/create .......................................................... site-data.create › SiteDataController@create
+  GET|HEAD   admin-panel/site-data/edit/{slug} ......................................................... site-data.edit › SiteDataController@edit
+  POST       admin-panel/site-data/store ............................................................. site-data.store › SiteDataController@store
+  POST       admin-panel/site-data/update .......................................................... site-data-update › SiteDataController@update
+  GET|HEAD   all-blog/{key?}/{page?} ....................................................................................... HomeController@blogs
+  GET|HEAD   blog-detay/{slug} ................................................................... blog_detail › Front\BlogController@blog_detail
+  GET|HEAD   blog/{slug}/{id} ........................................................................................ HomeController@blog_detail
+  GET|HEAD   category/{slug} ............................................................................ category-page › HomeController@category
+  GET|HEAD   check-email/{email} ............................................................ email-user-check › Front\UserController@email_check
+  GET|HEAD   check-phone/{phone_number} .......................................................... phone-check › Front\UserController@phone_check
+  GET|HEAD   check-username/{username} ..................................................... username-check › Front\UserController@username_check
+  GET|HEAD   confirm/{token} ................................................................... confirm_user › Front\UserController@confirm_user
+  GET|HEAD   faqin/{key?} .......................................................................................... faqin › HomeController@faqin
+  GET|HEAD   fetch-page/{page_id} ........................................................................ fetch-page › HomeController@fetch_page
+  POST       forget-pw-post ................................................................ forget_pw_post › Front\UserController@forget_pw_post
+  GET|HEAD   giris ...................................................................................... user-login › Front\UserController@login
+  GET|HEAD   hakkimizda ......................................................................................... about-us › HomeController@about
+  GET|HEAD   iletisim ................................................................................. contact › Front\ContactController@contact
+  POST       iletisim-post .................................................................. contact_post › Front\ContactController@contact_post
+  GET|HEAD   kategori-detay/{slug}/{id} ........................................................ category_detail › HomeController@category_detail
+  GET|HEAD   kayit-ol ............................................................................. user-register › Front\UserController@register
+  POST       login-post ............................................................................ admin-login-post › AuthController@login_post
+  POST       login_user ............................................................................ login_user › Front\UserController@login_user
+  POST       logout_user .............................................................................. logout_user › Front\UserController@logout
+  POST       register_user ................................................................... register_user › Front\UserController@register_user
+  GET|HEAD   remember-me ............................................................................... remember-me › AuthController@remember_me
+  GET|HEAD   sanctum/csrf-cookie .............................................. sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show
+  GET|HEAD   sifremi-unuttum .............................................................. user-forget-pw › Front\UserController@forget_password
+  GET|HEAD   sss ...................................................................................................... sss › HomeController@faqs
+  POST       test .............................................................................................. test › HomeController@login_post
+  GET|HEAD   urun-detay/{slug} .......................................................... product_detail › Front\ProductController@product_detail
+  GET|HEAD   yardim ............................................................................................... help-me › HomeController@help

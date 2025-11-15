@@ -1,0 +1,46 @@
+
+  GET|HEAD        / ................................................................................. HomeController@index
+  GET|HEAD        _debugbar/assets/javascript ................ debugbar.assets.js › Barryvdh\Debugbar › AssetController@js
+  GET|HEAD        _debugbar/assets/stylesheets ............. debugbar.assets.css › Barryvdh\Debugbar › AssetController@css
+  DELETE          _debugbar/cache/{key}/{tags?} ....... debugbar.cache.delete › Barryvdh\Debugbar › CacheController@delete
+  GET|HEAD        _debugbar/clockwork/{id} ...... debugbar.clockwork › Barryvdh\Debugbar › OpenHandlerController@clockwork
+  GET|HEAD        _debugbar/open ................. debugbar.openhandler › Barryvdh\Debugbar › OpenHandlerController@handle
+  POST            _ignition/execute-solution ignition.executeSolution › Spatie\LaravelIgnition › ExecuteSolutionController
+  GET|HEAD        _ignition/health-check ........... ignition.healthCheck › Spatie\LaravelIgnition › HealthCheckController
+  POST            _ignition/update-config ........ ignition.updateConfig › Spatie\LaravelIgnition › UpdateConfigController
+  GET|HEAD        admin-panel ...................................................... dashboard › DashboardController@index
+  GET|HEAD        admin-panel/admin-settings ............................. admin-settings › AdminController@admin_settings
+  GET|HEAD        admin-panel/blogs ........................................... blogs.index › BlogCategoryController@index
+  POST            admin-panel/blogs ........................................... blogs.store › BlogCategoryController@store
+  GET|HEAD        admin-panel/blogs/create .................................. blogs.create › BlogCategoryController@create
+  GET|HEAD        admin-panel/blogs/{blog} ...................................... blogs.show › BlogCategoryController@show
+  PUT|PATCH       admin-panel/blogs/{blog} .................................. blogs.update › BlogCategoryController@update
+  DELETE          admin-panel/blogs/{blog} ................................ blogs.destroy › BlogCategoryController@destroy
+  GET|HEAD        admin-panel/blogs/{blog}/edit ................................. blogs.edit › BlogCategoryController@edit
+  GET|HEAD        admin-panel/categories/check-slug/{slug}/{type?}/{id?} ...... check-slug › CategoryController@check_slug
+  GET|HEAD        admin-panel/categories/create/{type?} .................... categories.create › CategoryController@create
+  POST            admin-panel/categories/delete .................... blog-category-delete › BlogCategoryController@destroy
+  GET|HEAD        admin-panel/categories/delete-category-image/{image_id} delete-category-images › CategoryController@del…
+  GET|HEAD        admin-panel/categories/edit/{slug} ........................... categories.edit › CategoryController@edit
+  GET|HEAD        admin-panel/categories/select-categories/{cat_id}/{type?} select-categories › CategoryController@select…
+  GET|HEAD        admin-panel/categories/show-category-images/{cat_id}/{image_id?}/{rank?} show-category-images › Categor…
+  GET|HEAD        admin-panel/categories/show-image/{type}/{id} ............... show-image › CategoryController@show_image
+  GET|HEAD        admin-panel/categories/show-sub-categories/{cat_id}/{type?} show-sub-categories › CategoryController@sh…
+  GET|HEAD        admin-panel/categories/show-up-categories/{cat_id} show-up-categories › CategoryController@show_up_cate…
+  POST            admin-panel/categories/store ............................... categories.store › CategoryController@store
+  POST            admin-panel/categories/update ..................... blog-category-update › BlogCategoryController@update
+  GET|HEAD        admin-panel/categories/{type?} ............................. categories.index › CategoryController@index
+  GET|HEAD        admin-panel/check-email/{email} .............................. check-email › AdminController@check_email
+  GET|HEAD        admin-panel/check-old-pw/{pw} .............................. check-old-pw › AdminController@check_old_pw
+  POST            admin-panel/logout ...................................................... logout › AuthController@logout
+  GET|HEAD        admin-panel/notifications ................................ notifications › AdminController@notifications
+  POST            admin-panel/password-post ................................ password-post › AdminController@password_post
+  GET|HEAD        admin-panel/profile .................................................. profile › AdminController@profile
+  POST            admin-panel/profile-post ................................... profile-post › AdminController@profile_post
+  GET|HEAD        category/{slug} ................................................ category-page › HomeController@category
+  GET|HEAD        login ............................................................................. AuthController@login
+  POST            login-post ................................................ admin-login-post › AuthController@login_post
+  GET|HEAD        remember-me ................................................... remember-me › HomeController@remember_me
+  GET|HEAD        sanctum/csrf-cookie .................. sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show
+  POST            test .................................................................. test › HomeController@login_post
+
