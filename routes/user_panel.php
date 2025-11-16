@@ -3,7 +3,7 @@
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\UserController;
+use App\Http\Controllers\Front\UserController as FrontUserController;
 use App\Http\Controllers\Front\UserAddressController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -13,16 +13,16 @@ use App\Http\Controllers\HomeController;
 Route::middleware(['frontenddata'])->group(function () {
     Route::get('/',[HomeController::class, 'index'])->name('index');
     Route::get('/blog/{slug}/{id}',[HomeController::class, 'blog_detail']);
-    Route::get('/giris',[UserController::class, 'login'])->name('user-login');
-    Route::get('/sifremi-unuttum',[UserController::class, 'forget_password'])->name('user-forget-pw');
+    Route::get('/giris',[FrontUserController::class, 'login'])->name('user-login');
+    Route::get('/sifremi-unuttum',[FrontUserController::class, 'forget_password'])->name('user-forget-pw');
     
     
-    Route::get('/kayit-ol',[UserController::class, 'register'])->name('user-register');
+    Route::get('/kayit-ol',[FrontUserController::class, 'register'])->name('user-register');
     Route::get('/all-blog/{key?}/{page?}',[HomeController::class, 'blogs']);
 
-    Route::get('/kategori-detay/{slug}',[HomeController::class, 'category_detail'])->name('category_detail') ;
-    Route::get('/confirm/{token}',[UserController::class, 'confirm_user'])->name('confirm_user');
-    Route::get('/eposta-guncelleme/{token}',[UserController::class, 'email_update'])->name('email_update');
+    Route::get('/kategori-detay/{slug}',action: [HomeController::class, 'category_detail'])->name('category_detail') ;
+    Route::get('/confirm/{token}',[FrontUserController::class, 'confirm_user'])->name('confirm_user');
+    Route::get('/eposta-guncelleme/{token}',[FrontUserController::class, 'email_update'])->name('email_update');
     Route::get('/urun-detay/{slug}/{id}',[ProductController::class, 'product_detail'])->name('product_detail');
     Route::get('/blog-detay/{slug}/{id}',[BlogController::class, 'blog_detail'])->name('blog_detail');
     Route::get('/sss',[HomeController::class, 'faqs'])->name('sss');
@@ -34,7 +34,7 @@ Route::middleware(['frontenddata'])->group(function () {
 
     Route::group(['middleware'=>\App\Http\Middleware\checkUser::class],function (){
         Route::post('/make-offer',[ProductController::class, 'make_offer'])->name('make_offer');
-        Route::get('/hesabim/{select?}',[UserController::class, 'user_profile'])->name('user-profile');
+        Route::get('/hesabim/{select?}',[FrontUserController::class, 'user_profile'])->name('user-profile');
       
 
     });
@@ -44,8 +44,8 @@ Route::group(['middleware'=>\App\Http\Middleware\checkUser::class],function (){
 
     Route::post('/comment-post',[ProductController::class, 'comment_post'])->name('comment_post');
     Route::post('/user-address-post',[UserAddressController::class, 'user_address_post'])->name('user-address-post');
-    Route::post('/user-profile-post',[UserController::class, 'user_profile_post'])->name('user-profile-post');
-    Route::get('/cancel-email-update',[UserController::class, 'cancel_email_update'])->name('cancel-email-update');
+    Route::post('/user-profile-post',[FrontUserController::class, 'user_profile_post'])->name('user-profile-post');
+    Route::get('/cancel-email-update',[FrontUserController::class, 'cancel_email_update'])->name('cancel-email-update');
     Route::get('/address-form/{id?}',[UserAddressController::class, 'address_form'])->name('address-form');
     Route::get('/make-primary/{id}',[UserAddressController::class, 'make_primary'])->name('make-primary');
     Route::get('/delete-address/{id}',[UserAddressController::class, 'delete_address'])->name('delete-address');
@@ -66,11 +66,11 @@ Route::get('/product-bids/{product_id}/{page?}',[ProductController::class, 'prod
 Route::get('/product-comments/{product_id}/{page?}',[ProductController::class, 'product_comments'])->name('product-comments');
 Route::get('/product-make-comment/{product_id}/{comment_id?}',[ProductController::class, 'product_make_comment'])->name('product-make-comment');
 
-Route::get('/check-email/{email}',[UserController::class, 'email_check'])->name('email-user-check');
-Route::get('/check-username/{username}',[UserController::class, 'username_check'])->name('username-check');
-Route::get('/check-phone/{phone_number}',[UserController::class, 'phone_check'])->name('phone-check');
-Route::post('/register_user',[UserController::class, 'register_user'])->name('register_user');
-Route::post('/login_user',[UserController::class, 'login_user'])->name('login_user');
-Route::post('/logout_user',[UserController::class, 'logout'])->name('logout_user');
-Route::post('/forget-pw-post',[UserController::class, 'forget_pw_post'])->name('forget_pw_post');
-Route::get('/fetch-page/{page_id}',[HomeController::class, 'fetch_page'])->name('fetch-page');
+Route::get('/check-email/{email}',[FrontUserController::class, 'email_check'])->name('email-user-check');
+Route::get('/check-username/{username}',[FrontUserController::class, 'username_check'])->name('username-check');
+Route::get('/check-phone/{phone_number}',[FrontUserController::class, 'phone_check'])->name('phone-check');
+Route::post('/register_user',[FrontUserController::class, 'register_user'])->name('register_user');
+Route::post('/login_user',[FrontUserController::class, 'login_user'])->name('login_user');
+Route::post('/logout_user',[FrontUserController::class, 'logout'])->name('logout_user');
+Route::post('/forget-pw-post',[FrontUserController::class, 'forget_pw_post'])->name('forget_pw_post');
+Route::get('/fetch-page/{page_id}',[FrontUserController::class, 'fetch_page'])->name('fetch-page');

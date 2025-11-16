@@ -47,6 +47,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected static function booted(): void
+    {
+        static::saved(function (User $user) {
+            $user->settings()->firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'receive_messages' => true,
+                    'friendship_allow' => true,
+                    'receive_emails' => true,
+                    'bid_inform' => true,
+                ]
+            );
+        });
+    }
     public function bids()
     {
         return $this->hasMany(\App\Models\ProductBid::class, 'product_id');

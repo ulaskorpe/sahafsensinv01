@@ -40,7 +40,7 @@
           <i class="icon-home3"></i><span data-i18n="nav.dash.main"  class="menu-title">Üyeler </span><span class="tag hidden tag tag-danger tag-pill float-xs-right mr-2">5</span></a>
           <ul class="menu-content">
 
-            <li @if($type->active =='users') class="active" @endif><a href="#" class="menu-item">Kullanıcı Listesi </a></li>
+            <li @if($type->active =='users') class="active" @endif><a href="{{ route('Users.index') }}" class="menu-item">Kullanıcı Listesi </a></li>
 
           
        <!-- #endregion -->

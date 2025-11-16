@@ -86,7 +86,6 @@
                     </form>
                 </div>
             </div>
-        </div>
     </div>
 
     <div class="col-md-6">
@@ -147,8 +146,8 @@
 
 
 @section('scripts')
-<script src="../../../assets/js/sweetalert2@11.js" type="text/javascript"></script>
-<script src="../../../assets/js/saveV3.js" type="text/javascript"></script>
+<script src="{{ url('assets/js/sweetalert2@11.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/js/saveV3.js') }}" type="text/javascript"></script>
     <script>
  document.getElementById('avatar').addEventListener('change', function(event) {
         const file = event.target.files[0];
