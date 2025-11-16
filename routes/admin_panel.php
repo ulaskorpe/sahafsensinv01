@@ -5,9 +5,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\TypeController as AdminTypeController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 
 Route::group(['prefix'=>'admin-panel' ],function (){
+    
     Route::get('/remember-me',[AuthController::class, 'remember_me'])->name('remember-me');
     Route::post('/login-post',[AuthController::class,'login_post'])->name('admin-login-post');
     Route::get('/admin-login',[AuthController::class,'login'])->name('admin-login');
@@ -53,6 +55,12 @@ Route::group(['prefix'=>'admin-panel' ],function (){
      //   Route::get('/test-1',[DashboardController::class, 'test1'])->name('test1');
         Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
+
+        Route:: group([
+             'prefix' => 'users',
+         ],function (){
+                 Route::resource('Users', AdminUserController::class)->except(['show']);
+         });
 
         Route:: group([
            'middleware' => ['checkSudo'],

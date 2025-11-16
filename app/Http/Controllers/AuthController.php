@@ -61,7 +61,7 @@ class AuthController extends Controller
         }
 
          
-        return view('admin.login');
+        return view('admin_panel.login');
     }
 
     private function generateAdminCode(){

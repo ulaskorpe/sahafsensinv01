@@ -18,6 +18,8 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Mail\AdminCreatedMail;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     use HttpResponses;
@@ -42,13 +44,29 @@ class AdminController extends Controller
     public function check_email($email){
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $user = User::where('admin_code','=',Session::get('admin_code'))->first();
-            $ch = User::where('email','=',$email)->where('id','<>',$user['id'])->first();
+            $ch = User::where('email','=',$email)
+            ->whereIn('role_id',[1,2,3])
+            ->where('id','<>',$user['id'])->first();
             if($ch){
-                return response()->json('bu email adresi ile başka kullanıcı kayıtlı');
+                return response()->json('bu email adresi ile başka bir admin kayıtlı');
             }
         } else {
            return response()->json("geçersiz email adresi");
         }
+        return response()->json("ok");
+    }
+
+
+    public function check_phone($phone){
+        
+            $user = User::where('admin_code','=',Session::get('admin_code'))->first();
+            $ch = User::where('phone_number','=',$phone)->where('id','<>',$user['id'])
+            ->whereIn('role_id',[1,2,3])
+            ->first();
+            if($ch){
+                return response()->json('bu telefon ile başka bir admin kayıtlı');
+            }
+     
         return response()->json("ok");
     }
 
@@ -171,7 +189,7 @@ class AdminController extends Controller
             }
         }
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id' => ['nullable', 'integer'],
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -181,8 +199,29 @@ class AdminController extends Controller
                 Rule::unique('users', 'email')->ignore($admin?->id),
             ],
             'phone_number' => ['nullable', 'string', 'max:255'],
-            'password' => [$admin ? 'nullable' : 'required', 'string', 'min:6'],
+          //  'password' => [$admin ? 'nullable' : 'required', 'string', 'min:6'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
         ]);
+
+        if ($validator->fails()) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $validator->errors()->first(),
+                ]);
+            }
+
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+
+        $pw = GeneralHelper::randomPassword(8,1);
+
 
         $admin ??= new User();
 
@@ -191,32 +230,69 @@ class AdminController extends Controller
         $admin->phone_number = isset($validated['phone_number']) ? trim((string) $validated['phone_number']) : null;
         $admin->role_id = 2;
 
-        $plainPassword = $validated['password'] ?? null;
-
+       
         if (!$admin->exists) {
             $admin->admin_code = $this->generateAdminCode();
         }
 
         if (!empty($plainPassword)) {
-            $admin->password = Hash::make($plainPassword);
+            $admin->password = $pw;
         }
 
         if (!$admin->exists) {
             $admin->email_verified_at = now();
         }
 
-        $admin->save();
+        try {
+            $admin->save();
 
-        if (!$adminId && $plainPassword) {
-            try {
-                Mail::to($admin->email)->send(new AdminCreatedMail($admin->name, $admin->admin_code, $plainPassword));
-            } catch (Exception $exception) {
-                report($exception);
+            if ($request->hasFile('avatar')) {
+                $file = $request->file('avatar');
+                $path = public_path('files/users/' . $admin->id);
+                File::ensureDirectoryExists($path);
+
+                $filename = GeneralHelper::fixName($admin->name) . '_' . now()->format('YmdHis') . '.' . GeneralHelper::findExtension($file->getClientOriginalName());
+                $file->move($path, $filename);
+
+                $admin->avatar = $filename;
+                $imagePath = $path . '/' . $filename;
+                $resizedImage = Image::make($imagePath)->resize(200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                $resizedImage->save($path . '/200' . $filename);
+
+                $admin->save();
             }
+
+            if (!$adminId && $pw) {
+                try {
+                    Mail::to($admin->email)->send(new AdminCreatedMail($admin->name, $admin->admin_code, $plainPassword));
+                } catch (Exception $exception) {
+                    report($exception);
+                }
+            }
+        } catch (Exception $exception) {
+            report($exception);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => __('Beklenmeyen bir hata oluştu.'),
+                ], 500);
+            }
+            return redirect()
+            ->back()
+            ->with('error', __('Beklenmeyen bir hata oluştu.'));
         }
 
         $message = $adminId ? __('Yönetici başarıyla güncellendi.') : __('Yönetici başarıyla oluşturuldu.');
-
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => $message,
+            ]);
+        }
         return redirect()
             ->route('sudo.admin-list')
             ->with('success', $message);

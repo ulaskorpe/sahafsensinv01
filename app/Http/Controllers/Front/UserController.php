@@ -278,6 +278,36 @@ class UserController extends Controller
         return view('front.confirm',['msg'=>$msg]);
     }
 
+
+    public function check_phone($phone){
+        
+        $user = User::where('admin_code','=',Session::get('admin_code'))->first();
+        $ch = User::where('phone_number','=',$phone)->where('id','<>',$user['id'])
+        ->whereIn('role_id',[4,5])
+        ->first();
+        if($ch){
+            return response()->json('bu telefon ile başka bir kullanıcı kayıtlı');
+        }
+ 
+    return response()->json("ok");
+}
+
+
+public function check_email($email){
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $user = User::where('admin_code','=',Session::get('admin_code'))->first();
+        $ch = User::where('email','=',$email)
+        ->whereIn('role_id',[4,5])
+        ->where('id','<>',$user['id'])->first();
+        if($ch){
+            return response()->json('bu email adresi ile başka bir admin kayıtlı');
+        }
+    } else {
+       return response()->json("geçersiz email adresi");
+    }
+    return response()->json("ok");
+}
+
     public function email_check($email){
             $err = "ok";
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -285,7 +315,9 @@ class UserController extends Controller
             }else{
 
                 if(!empty(Session::get('user_code'))){
-                    $user = User::select('id')->where('user_code','=',Session::get('user_code'))->first();
+                    $user = User::select('id')->where('user_code','=',Session::get('user_code'))
+                    ->
+                    ->first();
                     $id = $user['id'];
                 }else{
                     $id = 0;
@@ -347,7 +379,7 @@ class UserController extends Controller
             
         }else{
             if(!empty(Session::get('user_code'))){
-                $user = User::select('id')->where('user_code','=',Session::get('user_code'))->first();
+                $user = User::select('id')->where('user_code','=',Session::get('user_code'))->whereIn('role_id',[4,5])->first();
                 $id = $user['id'];
             }else{
                 $id = 0;

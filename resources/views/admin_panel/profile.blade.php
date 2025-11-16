@@ -7,7 +7,7 @@
             
             <div class="card-body collapse in">
                 <div class="card-block">
-                    <form class="form" id="user-forddm" name="user-fddorm" action="{{ route('profile-post') }}"
+                    <form class="form" id="user-form" name="user-form" action="{{ route('profile-post') }}"
                     method="post" enctype="multipart/form-data"  >
                     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
 
@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-actions right">
                         
-                            <button type="submit" class="btn btn-primary"  >
+                            <button type="button" class="btn btn-primary" onclick="userFormSubmit()" >
                                 <i class="icon-check2"></i> Kaydet
                             </button>
                         </div>
@@ -258,8 +258,7 @@ if ($('#password').val()=='') {
 
  
 
-
-function userFormSubmit(){
+async function userFormSubmit(){
 
    
             var error = false;
